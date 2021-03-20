@@ -81,6 +81,16 @@ namespace Ardalis.Specification
         Task<List<TResult>> ListAsync<TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default);
 
         /// <summary>
+        /// Enumerates all entities of <typeparamref name="T" />, that matches the encapsulated query logic of the
+        /// <paramref name="specification"/>, in a streaming manner from the database.
+        /// </summary>
+        /// <param name="specification">The encapsulated query logic.</param>
+        /// <returns>
+        /// An IEnumerable of type <typeparamref name="T" /> for all matched entities.
+        /// </returns>
+        IEnumerable<T> Enumerate(ISpecification<T> specification, CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// Returns a number that represents how many entities satisfy the encapsulated query logic
         /// of the <paramref name="specification"/>.
         /// </summary>

@@ -82,6 +82,7 @@ namespace Ardalis.Specification.EntityFrameworkCore
         {
             return await dbContext.Set<T>().ToListAsync(cancellationToken);
         }
+
         /// <inheritdoc/>
         public virtual async Task<List<T>> ListAsync(ISpecification<T> specification, CancellationToken cancellationToken = default)
         {
@@ -89,12 +90,21 @@ namespace Ardalis.Specification.EntityFrameworkCore
 
             return specification.PostProcessingAction == null ? queryResult : specification.PostProcessingAction(queryResult).ToList();
         }
+
         /// <inheritdoc/>
         public virtual async Task<List<TResult>> ListAsync<TResult>(ISpecification<T, TResult> specification, CancellationToken cancellationToken = default)
         {
             var queryResult = await ApplySpecification(specification).ToListAsync(cancellationToken);
 
             return specification.PostProcessingAction == null ? queryResult : specification.PostProcessingAction(queryResult).ToList();
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<T> Enumerate(ISpecification<T> specification, CancellationToken cancellationToken = default)
+        {
+            var queryResult = ApplySpecification(specification);
+
+            return specification.PostProcessingAction == null ? queryResult : specification.PostProcessingAction(queryResult);
         }
 
         /// <inheritdoc/>

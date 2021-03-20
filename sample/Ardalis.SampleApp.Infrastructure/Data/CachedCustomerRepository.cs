@@ -15,7 +15,7 @@ namespace Ardalis.SampleApp.Infrastructure.Data
         private readonly IMemoryCache _cache;
         private readonly ILogger<CachedRepository<T>> _logger;
         private readonly MyRepository<T> _sourceRepository;
-        private MemoryCacheEntryOptions _cacheOptions;
+        private readonly MemoryCacheEntryOptions _cacheOptions;
 
         public CachedRepository(IMemoryCache cache,
             ILogger<CachedRepository<T>> logger,
@@ -101,6 +101,12 @@ namespace Ardalis.SampleApp.Infrastructure.Data
 
         /// <inheritdoc/>
         public Task<List<TResult>> ListAsync<TResult>(Specification.ISpecification<T, TResult> specification, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<T> Enumerate(ISpecification<T> specification, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
